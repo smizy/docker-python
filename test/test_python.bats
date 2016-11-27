@@ -3,5 +3,5 @@
   echo "${output}" 
 
   [ $status -eq 0 ]
-  [ "${lines[0]}" = "${VERSION}" ]
+  [ "${lines[0]}" = "Python ${VERSION}" ]
 }
