@@ -22,7 +22,7 @@ RUN set -x \
         ca-certificates \
         python3 \
         su-exec \
-    && pip install --upgrade pip \
+    && pip3 install --upgrade pip \
     && ln -s /usr/bin/python3.5 /usr/bin/python \
     ## clean
     && find /usr/lib/python3.5 -name __pycache__ | xargs rm -r \
