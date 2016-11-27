@@ -48,4 +48,4 @@ deployment:
       - docker push smizy/python:${TAG_MAJOR}
       - docker push smizy/python:latest
       - docker logout
-      - curl -X POST 'https://hooks.microbadger.com/images/smizy/python/kt4cBzU-RiGizff2lIWPLX61Dz8='
+      - curl -X POST 'https://hooks.microbadger.com/images/smizy/python/B67xdho_HXXeXxVkUjT0TlgEmjk='
