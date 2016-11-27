@@ -1,5 +1,5 @@
 @test "python is the correct version" {
-  run docker run smizy/php:${TAG} python --version
+  run docker run smizy/python:${TAG} python --version
   echo "${output}" 
 
   [ $status -eq 0 ]
