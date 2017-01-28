@@ -13,7 +13,7 @@ services:
 
 before_script:
   - docker info
-  - docker login ${CI_REGISTRY}
+  - docker login ${CI_REGISTRY} -u gitlab-ci-token -p ${CI_BUILD_TOKEN}
 
 
 stages:
