@@ -7,13 +7,14 @@ variables:
   TAG_MINOR: 3.5-alpine
   TAG_MAJOR: 3-alpine
   VCS_REF: ${CI_BUILD_REF}
+  CONTAINER_IMAGE: ${CI_REGISTRY}/smizy/python
 
 services:
   - docker:dind
 
 before_script:
   - docker info
-  - docker login ${CI_REGISTRY} -u gitlab-ci-token -p ${CI_BUILD_TOKEN}
+  - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
 
 
 stages:
@@ -28,28 +29,31 @@ image-build:
       --build-arg BUILD_DATE=${BUILD_DATE} 
       --build-arg VCS_REF=${VCS_REF} 
       --build-arg VERSION=${VERSION} 
-      --rm -t ${CI_REGISTRY}/smizy/python:${TAG} .
+      --rm -t ${CONTAINER_IMAGE} .
     - docker images | grep python
-    - docker push ${CI_REGISTRY}/smizy/python:${TAG}
+    - docker push ${CONTAINER_IMAGE}
 
 image-test:
   stage: test
   script:
-    - docker inspect ${CI_REGISTRY}/smizy/python:${TAG}
-    - docker run ${CI_REGISTRY}/smizy/python:${TAG} python --version
+    - docker inspect ${CONTAINER_IMAGE}
+    - docker run ${CONTAINER_IMAGE} python --version
 
 image-deploy:
   stage: deploy
   script:
-    - docker pull ${CI_REGISTRY}/smizy/python:${TAG}
+    - docker pull ${CONTAINER_IMAGE}
+    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}:${TAG}
+    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}:${TAG_MINOR}
+    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}:${TAG_MAJOR}
+    - docker push ${CONTAINER_IMAGE}:${TAG}
+    - docker push ${CONTAINER_IMAGE}:${TAG_MINOR}
+    - docker push ${CONTAINER_IMAGE}:${TAG_MAJOR}
     - docker logout
-    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-    - docker tag smizy/python:${TAG} smizy/python
-    - docker tag smizy/python:${TAG} smizy/python:${TAG_MINOR}
-    - docker tag smizy/python:${TAG} smizy/python:${TAG_MAJOR}
-    - docker push smizy/python:${TAG}
-    - docker push smizy/python:${TAG_MINOR}
-    - docker push smizy/python:${TAG_MAJOR}
-    - docker push smizy/python:latest
+    - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
+    - docker push ${CONTAINER_IMAGE}:${TAG}
+    - docker push ${CONTAINER_IMAGE}:${TAG_MINOR}
+    - docker push ${CONTAINER_IMAGE}:${TAG_MAJOR}
+    - docker push ${CONTAINER_IMAGE}
     - docker logout
     - curl -X POST 'https://hooks.microbadger.com/images/smizy/python/B67xdho_HXXeXxVkUjT0TlgEmjk='
