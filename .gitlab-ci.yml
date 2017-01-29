@@ -14,7 +14,7 @@ services:
 
 before_script:
   - docker info
-  - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} registry.gitlab.com
+#   - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} registry.gitlab.com
 
 
 stages:
@@ -31,11 +31,13 @@ image-build:
       --build-arg VERSION=${VERSION} 
       --rm -t ${CONTAINER_IMAGE} .
     - docker images | grep python
+    - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} registry.gitlab.com    
     - docker push ${CONTAINER_IMAGE}
 
 image-test:
   stage: test
   script:
+    - docker pull ${CONTAINER_IMAGE}
     - docker inspect ${CONTAINER_IMAGE}
     - docker run ${CONTAINER_IMAGE} python --version
 
