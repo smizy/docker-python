@@ -30,7 +30,7 @@ image-build:
       --build-arg VERSION=${VERSION} 
       --rm -t smizy/python:${TAG} .
     - docker images | grep python
-    - docker push ${CI_REGISTRY}/smizy/python:${TAG}
+    - docker push smizy/python:${TAG}
 
 image-test:
   stage: test
