@@ -2,9 +2,9 @@ image: docker:latest
 
 variables:
   DOCKER_DRIVER: overlay
-  VERSION: 3.5.2
+  VERSION: 3.6.1
   TAG: ${VERSION}-alpine
-  TAG_MINOR: 3.5-alpine
+  TAG_MINOR: 3.6-alpine
   TAG_MAJOR: 3-alpine
   VCS_REF: ${CI_BUILD_REF}
   CONTAINER_IMAGE: ${CI_REGISTRY}/smizy/python
@@ -49,12 +49,12 @@ image-deploy:
     - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}:${TAG_MAJOR}
     - docker push ${CONTAINER_IMAGE}:${TAG}
     - docker push ${CONTAINER_IMAGE}:${TAG_MINOR}
-    - docker push ${CONTAINER_IMAGE}:${TAG_MAJOR}
+#    - docker push ${CONTAINER_IMAGE}:${TAG_MAJOR}
     - docker logout
     - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
     - docker push ${CONTAINER_IMAGE}:${TAG}
     - docker push ${CONTAINER_IMAGE}:${TAG_MINOR}
-    - docker push ${CONTAINER_IMAGE}:${TAG_MAJOR}
-    - docker push ${CONTAINER_IMAGE}
+ #   - docker push ${CONTAINER_IMAGE}:${TAG_MAJOR}
+ #   - docker push ${CONTAINER_IMAGE}
     - docker logout
     - curl -X POST 'https://hooks.microbadger.com/images/smizy/python/B67xdho_HXXeXxVkUjT0TlgEmjk='

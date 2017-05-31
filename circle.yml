@@ -2,7 +2,7 @@
 # https://circleci.com/docs/docker
 machine:
   environment:
-    VERSION: 3.5.2
+    VERSION: 3.6.1
     BUILD_DATE: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
     VCS_REF: ${CIRCLE_SHA1:0:7}
     TAG: ${VERSION}-alpine
@@ -36,7 +36,7 @@ test:
 # https://circleci.com/docs/environment-variables
 deployment:
   master:
-    branch: master
+    branch: "3.6"
     owner: smizy
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
@@ -45,7 +45,7 @@ deployment:
       - docker tag smizy/python:${TAG} smizy/python:${TAG_MAJOR}
       - docker push smizy/python:${TAG}
       - docker push smizy/python:${TAG_MINOR}
-      - docker push smizy/python:${TAG_MAJOR}
-      - docker push smizy/python:latest
+#      - docker push smizy/python:${TAG_MAJOR}
+#      - docker push smizy/python:latest
       - docker logout
       - curl -X POST 'https://hooks.microbadger.com/images/smizy/python/B67xdho_HXXeXxVkUjT0TlgEmjk='
