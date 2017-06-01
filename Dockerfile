@@ -23,9 +23,9 @@ RUN set -x \
         python3 \
         su-exec \
     && pip3 install --upgrade pip \
-    && ln -s /usr/bin/python3.5 /usr/bin/python \
+    && ln -s /usr/bin/python3.6 /usr/bin/python \
     ## clean
-    && find /usr/lib/python3.5 -name __pycache__ | xargs rm -r \
+    && find /usr/lib/python3.6 -name __pycache__ | xargs rm -r \
     && rm -rf /root/.[acpw]* \
     ## user
     && adduser -D  -g '' -s /sbin/nologin -u 1000 docker 
