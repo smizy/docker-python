@@ -66,7 +66,7 @@ jobs:
             TAG_MINOR=${VERSION%.*}-alpine
             TAG_MAJOR=${VERSION%%.*}-alpine
 
-            if [ "${CIRCLE_BRANCH}" == "3.6" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASS
               docker image tag smizy/python:${TAG} smizy/python
               docker image tag smizy/python:${TAG} smizy/python:${TAG_MINOR}
@@ -74,8 +74,8 @@ jobs:
 
               docker image push smizy/python:${TAG}
               docker image push smizy/python:${TAG_MINOR}
-              # docker image push smizy/python:${TAG_MAJOR}              
-              # docker image push smizy/python:latest              
+              docker image push smizy/python:${TAG_MAJOR}              
+              docker image push smizy/python:latest              
               docker logout
               curl -X POST 'https://hooks.microbadger.com/images/smizy/python/B67xdho_HXXeXxVkUjT0TlgEmjk='
             fi
