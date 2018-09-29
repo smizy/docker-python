@@ -66,7 +66,7 @@ jobs:
             TAG_MINOR=${VERSION%.*}-alpine
             TAG_MAJOR=${VERSION%%.*}-alpine
 
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "alpine3.8" ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASS
               docker image tag smizy/python:${TAG} smizy/python
               docker image tag smizy/python:${TAG} smizy/python:${TAG_MINOR}
