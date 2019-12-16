@@ -10,7 +10,7 @@ Python3 docker image based on alpine
 ```
 # print version
 $ docker run -it --rm -v $(pwd):/code -p 8000:8000 smizy/python:3.6-alpine python --version
-Python 3.6.5
+Python 3.6.8
 
 # run built-in python cgi server (.py files in cgi-bin or htbin dir)
 $ docker run -it --rm -v $(pwd):/code -p 8000:8000 smizy/python built-in cgi
