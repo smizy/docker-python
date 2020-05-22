@@ -1,4 +1,4 @@
-FROM alpine:3.10.3
+FROM alpine:3.11.6
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -23,9 +23,9 @@ RUN set -x \
         python3 \
         su-exec \
     && pip3 install --upgrade pip \
-    && ln -s /usr/bin/python3.7 /usr/bin/python \
+    && ln -s /usr/bin/python3.8 /usr/bin/python \
     ## clean
-    && find /usr/lib/python3.7 -name __pycache__ | xargs rm -r \
+    && find /usr/lib/python3.8 -name __pycache__ | xargs rm -r \
     && rm -rf /root/.[acpw]* \
     ## user
     && adduser -D  -g '' -s /sbin/nologin -u 1000 docker 
