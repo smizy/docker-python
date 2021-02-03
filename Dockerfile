@@ -1,4 +1,4 @@
-FROM alpine:3.11.6
+FROM alpine:3.12.3
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -21,6 +21,7 @@ RUN set -x \
     && apk --no-cache add \
         ca-certificates \
         python3 \
+        py3-pip \
         su-exec \
     && pip3 install --upgrade pip \
     && ln -s /usr/bin/python3.8 /usr/bin/python \
