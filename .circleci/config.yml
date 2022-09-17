@@ -79,4 +79,3 @@ jobs:
             fi
                      
             docker logout
-            curl -X POST 'https://hooks.microbadger.com/images/smizy/python/B67xdho_HXXeXxVkUjT0TlgEmjk='
