@@ -7,8 +7,8 @@ jobs:
       - image: docker:20.10.14-git
 
     environment:
-      VERSION: "3.8.5"
-      TAG: "3.8.5-alpine"
+      VERSION: "3.8.10"
+      TAG: "3.8.10-alpine"
       # TAG: ${VERSION}-alpine
       # TAG_MINOR: ${VERSION%.*}-alpine
       # TAG_MAJOR: ${VERSION%%.*}-alpine 
